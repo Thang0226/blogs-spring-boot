@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/layout :: head">
+    <title>Update</title>
+</head>
+<body>
+<h2>Update Blog</h2>
+
+<p>
+    <a th:href="@{/blogs}">
+        Back to list
+    </a>
+</p>
+
+<div id="form">
+    <form th:action="@{/blogs/update}" method="post" th:object="${blogForm}" enctype="multipart/form-data">
+        <input type="hidden" th:field="*{id}" />
+        <table>
+            <tr>
+                <td><label for="title">Title: </label></td>
+                <td><input type="text" id="title" th:field="*{title}"/></td>
+            </tr>
+            <tr>
+                <td><label for="author">Author: </label></td>
+                <td><input type="text" id="author" th:field="*{author}"/></td>
+            </tr>
+            <tr>
+                <td><label for="content">Content: </label></td>
+                <td><textarea id="content" th:field="*{content}" cols="50" rows="10"></textarea></td>
+            </tr>
+            <tr>
+                <td><label for="image">Blog Image: </label></td>
+                <td><img width="350" height="200" th:src="@{'/images/' + ${image}}" alt="Blog Image"></td>
+            </tr>
+            <tr>
+                <td><label for="image">Change Blog Image: </label></td>
+                <td><input type="file" id="image" th:field="*{imageFile}"/></td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="category">Category: </label>
+                </td>
+                <td>
+                    <select id="category" th:field="*{category_id}">
+                        <option th:each="cat : ${categories}" th:value="${cat.id}" th:text="${cat.name}"></option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td><input type="submit" value="Save Blog"/></td>
+            </tr>
+        </table>
+    </form>
+</div>
+
+<footer th:replace="/layout :: footer"></footer>
+</body>
+</html>

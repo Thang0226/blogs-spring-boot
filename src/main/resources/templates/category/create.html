@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/layout :: head">
+    <title>AddNew</title>
+</head>
+<body>
+<h2>Add New Category</h2>
+
+<p>
+    <a th:href="@{/categories}">
+        Back to list
+    </a>
+</p>
+
+<div id="form">
+    <form th:action="@{/categories/save}" th:object="${category}" method="post">
+        <input type="hidden" th:field="*{id}" />
+        <table>
+            <tr>
+                <td><label for="name">Name: </label></td>
+                <td><input type="text" id="name" th:field="*{name}"/></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td><input type="submit" value="Save Category"/></td>
+            </tr>
+        </table>
+    </form>
+</div>
+
+<footer th:replace="/layout :: footer"></footer>
+</body>
+</html>

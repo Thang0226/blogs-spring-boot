@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/layout :: head">
+    <title>View</title>
+</head>
+<body>
+<h2>View Category</h2>
+
+<p>
+    <a th:href="@{/categories}">
+        Back to list
+    </a>
+</p>
+
+<table th:object="${category}">
+    <tr>
+        <td><label for="id">ID: </label></td>
+        <td><input type="text" id="id" th:field="*{id}" disabled/></td>
+    </tr>
+    <tr>
+        <td><label for="name">Name: </label></td>
+        <td><input type="text" id="name" th:field="*{name}" disabled/></td>
+    </tr>
+</table>
+
+<footer th:replace="/layout :: footer"></footer>
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<head th:replace="~{layout :: head}">
+    <title>List</title>
+</head>
+
+<body>
+<h2 th:text="#{category.title}">Category List</h2>
+
+<p style="margin-left: 5px">
+    <a th:href="@{/blogs}" th:text="#{category.blogs}"> Back to Blog List </a>
+</p>
+
+<p style="margin-left: 5px">
+    <a th:href="@{/categories/create}" th:text="#{category.create}"> Add new category </a>
+</p>
+
+<div th:if="${message}" class="notify">
+    <span th:text="${message}"></span>
+</div>
+
+<table id="list">
+    <thead>
+    <tr>
+        <th th:text="#{category.id}">ID</th>
+        <th th:text="#{category.name}">Name</th>
+        <th th:text="#{category.actions}">Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="row : ${categories}">
+        <td th:text="${row.id}"></td>
+        <td><a th:href="@{/categories/{id}/view(id=${row.id})}" th:text="${row.name}"></a></td>
+        <td>
+            <a th:href="@{/categories/{id}/update(id=${row.id})}" th:text="#{category.update}">Update</a>
+            <a th:href="@{/categories/{id}/delete(id=${row.id})}" th:text="#{category.delete}">Delete</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<div th:insert="~{/layout :: footer}"></div>
+</body>
+</html>

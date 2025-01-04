@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/layout :: head">
+    <title>View</title>
+</head>
+<body>
+<h2>View Blog</h2>
+
+<p>
+    <a th:href="@{/blogs}">
+        Back to list
+    </a>
+</p>
+
+<table th:object="${blog}">
+    <tr>
+        <td><label for="time">Time added: </label></td>
+        <td><input type="text" id="time" th:field="*{time}" disabled/></td>
+    </tr>
+    <tr>
+        <td><label for="category">Category: </label></td>
+        <td><span id="category" th:text="${blog.category.name}"></span></td>
+    </tr>
+    <tr>
+        <td><label for="title">Title: </label></td>
+        <td><input type="text" id="title" th:field="*{title}" disabled/></td>
+    </tr>
+    <tr>
+        <td><label for="author">Author: </label></td>
+        <td><input type="text" id="author" th:field="*{author}" disabled/></td>
+    </tr>
+    <tr>
+        <td>Blog Image: </td>
+        <td><img width="500" height="350" th:src="@{'/images/' + *{imageFile}}" alt="Blog Image"></td>
+    </tr>
+    <tr>
+        <td><label for="content">Content: </label></td>
+        <td><textarea id="content" th:field="*{content}" cols="50" rows="10" disabled></textarea></td>
+    </tr>
+</table>
+
+<footer th:replace="/layout :: footer"></footer>
+</body>
+</html>

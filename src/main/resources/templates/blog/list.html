@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<head th:replace="~{layout :: head}">
+    <title>List</title>
+</head>
+
+<body>
+<h2 th:text="#{blog.list}">Blog List</h2>
+
+<p style="margin-left: 5px">
+    <a th:href="@{/categories}" th:text="#{blog.categories}"> Categories </a>
+</p>
+
+<p style="text-align: right; margin-right: 5px">
+    <a href="?lang=en">ENG</a>
+    <a href="?lang=vi">VI</a>
+</p>
+
+<p style="margin-left: 5px">
+    <a th:href="@{/blogs/create}" th:text="#{blog.create}"> Add new blog </a>
+</p>
+
+<div th:if="${message}" class="notify">
+    <span th:text="${message}"></span>
+</div>
+
+<div style="margin-bottom: 10px; margin-left: 110px">
+    <form th:action="@{/blogs}" method="get">
+        <label><input type="text" name="search"></label>
+        <button type="submit" class="btn btn-success">Search Blog by Titles</button>
+    </form>
+</div>
+<br>
+
+<p>
+    <a th:href="@{/blogs}" th:text="#{blog.show}">Show all blogs</a>
+</p>
+
+<div>
+    <form th:action="@{/blogs}" method="get">
+        <label for="category" th:text="#{blog.category}">Choose Category</label>
+        <select name="category_id" id="category">
+            <option th:each="category : ${categories}" th:value="${category.id}" th:text="${category.name}"></option>
+        </select>
+        <button type="submit" class="btn btn-success" th:text="#{blog.filter}">Apply Filter</button>
+    </form>
+</div>
+<br>
+
+<table id="list">
+    <thead>
+    <tr>
+        <th th:text="#{blog.time}">Time</th>
+        <th th:text="#{blog.title}">Title</th>
+        <th th:text="#{blog.author}">Author</th>
+        <th th:text="#{blog.image}">Image</th>
+        <th th:text="#{blog.actions}">Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="row : ${blogs}">
+        <td th:text="${row.time}"></td>
+        <td><a th:href="@{/blogs/{id}/view(id=${row.id})}" th:text="${row.title}"></a></td>
+        <td th:text="${row.author}"></td>
+        <td>
+            <img width="150" height="100" th:src="@{'/images/' + ${row.imageFile}}" alt="No Image">
+        </td>
+        <td>
+            <a th:href="@{/blogs/{id}/update(id=${row.id})}" th:text="#{blog.update}">Update</a>
+            <a th:href="@{/blogs/{id}/delete(id=${row.id})}" th:text="#{blog.delete}">Delete</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<a class="btn btn-primary" th:if="${blogs.hasPrevious()}"
+   th:href="@{/blogs(page=${blogs.number - 1})}" th:text="#{blog.previous}">Previous</a>
+<span th:text="${blogs.number + 1}"></span> | <span th:text="${blogs.totalPages}"></span>
+<a class="btn btn-primary" th:if="${blogs.hasNext()}"
+   th:href="@{/blogs(page=${blogs.number + 1})}" th:text="#{blog.next}">Next</a>
+
+<div th:insert="~{/layout :: footer}"></div>
+</body>
+</html>
