@@ -39,7 +39,9 @@ public class BlogController {
     @GetMapping
     public String listBlogs(@PageableDefault(size = 2, sort = "time", direction = Sort.Direction.ASC) Pageable pageable,
                             @RequestParam("search") Optional<String> search,
-                            @RequestParam("category_id") Optional<Long> cat_id, Model model) {
+                            @RequestParam("category_id") Optional<Long> cat_id,
+                            @RequestParam("page") Optional<Integer> page,
+                            Model model) {
         Page<Blog> blogs;
         if(search.isPresent()){
             blogs = blogService.findByTitleContaining(pageable, search.get());
@@ -52,6 +54,9 @@ public class BlogController {
         }
         model.addAttribute("blogs", blogs);
         model.addAttribute("categories", categoryService.findAll());
+        model.addAttribute("search", search.orElse(null));
+        model.addAttribute("page", page.orElse(null));
+        model.addAttribute("category_id", cat_id.orElse(null));
         return "blog/list";
     }
 

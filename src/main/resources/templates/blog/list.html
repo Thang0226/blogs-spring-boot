@@ -74,11 +74,32 @@
     </tbody>
 </table>
 
-<a class="btn btn-primary" th:if="${blogs.hasPrevious()}"
-   th:href="@{/blogs(page=${blogs.number - 1})}" th:text="#{blog.previous}">Previous</a>
-<span th:text="${blogs.number + 1}"></span> | <span th:text="${blogs.totalPages}"></span>
-<a class="btn btn-primary" th:if="${blogs.hasNext()}"
-   th:href="@{/blogs(page=${blogs.number + 1})}" th:text="#{blog.next}">Next</a>
+<th:block th:unless="${search}">
+    <th:block th:unless="${category_id}">
+        <a class="btn btn-primary" th:if="${blogs.hasPrevious()}"
+           th:href="@{/blogs(page=${blogs.number - 1})}" th:text="#{blog.previous}">Previous</a>
+        <span th:text="${blogs.number + 1}"></span> | <span th:text="${blogs.totalPages}"></span>
+        <a class="btn btn-primary" th:if="${blogs.hasNext()}"
+           th:href="@{/blogs(page=${blogs.number + 1})}" th:text="#{blog.next}">Next</a>
+    </th:block>
+
+    <th:block th:if="${category_id}">
+        <a class="btn btn-primary" th:if="${blogs.hasPrevious()}"
+           th:href="@{/blogs?category_id=__${category_id}__&page=__${blogs.number - 1}__}" th:text="#{blog.previous}">Previous</a>
+        <span th:text="${blogs.number + 1}"></span> | <span th:text="${blogs.totalPages}"></span>
+        <a class="btn btn-primary" th:if="${blogs.hasNext()}"
+           th:href="@{/blogs?category_id=__${category_id}__&page=__${blogs.number + 1}__}" th:text="#{blog.next}">Next</a>
+    </th:block>
+</th:block>
+
+<th:block th:if="${search}">
+    <a class="btn btn-primary" th:if="${blogs.hasPrevious()}"
+       th:href="@{/blogs?search=__${search}__&page=__${blogs.number - 1}__}" th:text="#{blog.previous}">Previous</a>
+    <span th:text="${blogs.number + 1}"></span> | <span th:text="${blogs.totalPages}"></span>
+    <a class="btn btn-primary" th:if="${blogs.hasNext()}"
+       th:href="@{/blogs?search=__${search}__&page=__${blogs.number + 1}__}" th:text="#{blog.next}">Next</a>
+</th:block>
+
 
 <div th:insert="~{/layout :: footer}"></div>
 </body>
