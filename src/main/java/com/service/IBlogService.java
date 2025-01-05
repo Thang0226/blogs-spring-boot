@@ -12,7 +12,7 @@ public interface IBlogService extends IService<Blog> {
 
     Page<Blog> findByCategory(Pageable pageable, Category category);
 
-    Iterable<Blog> findByCategory(Category category);
+//    Iterable<Blog> findByCategory(Category category);
 
-    Iterable<Blog> findByTitleContaining(String searchText);
+//    Iterable<Blog> findByTitleContaining(String searchText);
 }

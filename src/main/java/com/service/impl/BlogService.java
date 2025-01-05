@@ -16,14 +16,19 @@ public class BlogService implements IBlogService {
     @Autowired
     private IBlogRepository blogRepository;
 
-    @Override
-    public Iterable<Blog> findAll() {
-        return blogRepository.findAll();
-    }
+//    @Override
+//    public Iterable<Blog> findAll() {
+//        return blogRepository.findAllByDisabledEquals(false);
+//    }
 
     @Override
     public Optional<Blog> findById(Long id) {
         return blogRepository.findById(id);
+    }
+
+    @Override
+    public Iterable<Blog> findAll() {
+        return blogRepository.findAll();
     }
 
     @Override
@@ -33,12 +38,15 @@ public class BlogService implements IBlogService {
 
     @Override
     public void remove(Long id) {
-        blogRepository.deleteById(id);
+//        blogRepository.deleteById(id);
+        Blog blog = blogRepository.findById(id).get();
+        blog.setDisabled(true);
+        blogRepository.save(blog);
     }
 
     @Override
     public Page<Blog> findAll(Pageable pageable) {
-        return blogRepository.findAll(pageable);
+        return blogRepository.findAllByDisabledEquals(false, pageable);
     }
 
     @Override
@@ -51,13 +59,13 @@ public class BlogService implements IBlogService {
         return blogRepository.findByCategory(pageable, cat);
     }
 
-    @Override
-    public Iterable<Blog> findByCategory(Category category) {
-        return blogRepository.findByCategory(category);
-    }
+//    @Override
+//    public Iterable<Blog> findByCategory(Category category) {
+//        return blogRepository.findByCategory(category);
+//    }
 
-    @Override
-    public Iterable<Blog> findByTitleContaining(String searchText) {
-        return blogRepository.findByTitleContaining(searchText);
-    }
+//    @Override
+//    public Iterable<Blog> findByTitleContaining(String searchText) {
+//        return blogRepository.findByTitleContaining(searchText);
+//    }
 }

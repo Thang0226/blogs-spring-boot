@@ -81,8 +81,14 @@ public class BlogController {
             ex.printStackTrace();
             System.out.println(ex.getMessage());
         }
-        Blog blog = new Blog(blogForm.getId(), blogForm.getTitle(), blogForm.getContent(), blogForm.getAuthor(),
-                fileName, LocalDateTime.now(), category.get());
+        Blog blog = new Blog();
+        blog.setTitle(blogForm.getTitle());
+        blog.setContent(blogForm.getContent());
+        blog.setAuthor(blogForm.getAuthor());
+        blog.setImageFile(fileName);
+        blog.setTime(LocalDateTime.now());
+        blog.setDisabled(false);
+        blog.setCategory(category.get());
         blogService.save(blog);
 
         redirectAttributes.addFlashAttribute("message", "New blog added successfully");

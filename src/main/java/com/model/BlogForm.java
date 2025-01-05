@@ -1,9 +1,13 @@
 package com.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.web.multipart.MultipartFile;
 
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class BlogForm {
     private Long id;
     private String title;
@@ -12,17 +16,4 @@ public class BlogForm {
     private MultipartFile imageFile;
     private String time;
     private Long category_id;
-
-    public BlogForm() {
-    }
-
-    public BlogForm(Long id, String title, String content, String author, MultipartFile imageFile, String time, Long category_id) {
-        this.id = id;
-        this.title = title;
-        this.content = content;
-        this.author = author;
-        this.imageFile = imageFile;
-        this.time = time;
-        this.category_id = category_id;
-    }
 }
