@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-public class UserPrinciple implements UserDetails {
+public class UserPrincipal implements UserDetails {
     @Serial
     private static final long serialVersionUID = 1L;
 
@@ -21,19 +21,19 @@ public class UserPrinciple implements UserDetails {
     private String password;
     private Collection<? extends GrantedAuthority> authorities;
 
-    public UserPrinciple(Long id, String username, String password, Collection<? extends GrantedAuthority> authorities) {
+    public UserPrincipal(Long id, String username, String password, Collection<? extends GrantedAuthority> authorities) {
         this.id = id;
         this.username = username;
         this.password = password;
         this.authorities = authorities;
     }
 
-    public static UserPrinciple build(AppUser user) {
+    public static UserPrincipal build(AppUser user) {
         List<GrantedAuthority> authorities = new ArrayList<>();
         for (AppRole role : user.getRoles()) {
             authorities.add(new SimpleGrantedAuthority(role.getAuthority()));
         }
-        return new UserPrinciple(user.getId(), user.getUsername(), user.getPassword(), authorities);
+        return new UserPrincipal(user.getId(), user.getUsername(), user.getPassword(), authorities);
     }
 
     @Override

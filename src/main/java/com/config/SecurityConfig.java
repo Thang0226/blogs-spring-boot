@@ -43,9 +43,9 @@ public class SecurityConfig {
                                 .requestMatchers("/blogs/*/view").permitAll()
                                 .requestMatchers("/blogs/**").authenticated()
                                 .requestMatchers("/categories**").hasRole("ADMIN")
-                                .anyRequest().permitAll()
+                                .anyRequest().authenticated()
                 )
-                .formLogin(Customizer.withDefaults())
+                .formLogin(l -> l.defaultSuccessUrl("/blogs"))
                 .logout(Customizer.withDefaults())
                 .csrf(AbstractHttpConfigurer::disable);
         return http.build();

@@ -1,7 +1,7 @@
 package com.service.user;
 
 import com.model.user.AppUser;
-import com.model.user.UserPrinciple;
+import com.model.user.UserPrincipal;
 import com.repo.IAppUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -44,6 +44,6 @@ public class AppUserService implements IAppUserService, UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         AppUser appUser = userRepository.findByUsername(username);
-        return UserPrinciple.build(appUser);
+        return UserPrincipal.build(appUser);
     }
 }
