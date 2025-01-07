@@ -1,3 +1,5 @@
+const API_BASE_URL = 'http://localhost:8080';
+
 function showBlogs() {
     event.preventDefault();
 
@@ -18,7 +20,7 @@ function showBlogs() {
                 <td>${blog.title}</td>
                 <td>${blog.author}</td>
                 <td>
-                    <img width="150" height="100" src="${blog.imageFile}" alt="No Image" class="img-thumbnail">
+                    <img width="250" height="150" src="${API_BASE_URL}/images/${blog.imageFile}" alt="No Image" class="img-thumbnail">
                 </td>
                 <td>
                     <a href="#" class="btn btn-warning btn-sm" onclick="update(${blog.id})">Update</a>
